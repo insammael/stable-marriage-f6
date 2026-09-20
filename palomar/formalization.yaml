@@ -8,14 +8,10 @@ project:
     with at most fifteen elements, width at most three, and the CI2
     common-incomparability condition has at most forty-eight antichains.
   authors:
-    - name: "Myunglae Jo"
-      github: "insammael"
-      orcid: "0000-0003-1480-1717"
+    - "Myunglae Jo"
   license: "Apache-2.0"
   responsible_maintainers:
-    - name: "Myunglae Jo"
-      github: "insammael"
-      orcid: "0000-0003-1480-1717"
+    - "Myunglae Jo"
 
 classification:
   arxiv: [math.CO]
@@ -24,27 +20,33 @@ classification:
 sources:
   - title: "Small Rotation Blocks and the Order-Six Stable Marriage Problem"
     authors: ["Myunglae Jo"]
-    type: "manuscript"
+    type: "paper"
+    id: "10.5281/zenodo.22860585"
+    location: "https://zenodo.org/records/22860585"
     relationship: "formalizes"
     note: >-
-      This submission formalizes only the finite-poset theorem used by the
-      manuscript, not the complete stable-marriage semantic bridge.
-    license: "unknown"
+      The submission formalizes the finite-poset theorem used in the paper,
+      not the complete stable-marriage theorem f(6)=48.
+    license: "CC-BY-4.0"
     author_endorsement: "participated"
 
 status:
   scope: >-
-    The advertised result is exactly the finite-poset theorem: card V <= 15,
-    width <= 3, and CI2 imply at most 48 antichains. The Lean development also
-    contains supporting finite-poset, fixed-token, and abstract-support
-    components. It does not formalize end to end the classical rotation
-    semantics, the stable-matching/downset correspondence, the human bridge
-    from rotations to the token model, or the lower-bound construction.
+    The advertised result is the finite-poset theorem: card V <= 15, width <= 3,
+    and CI2 imply at most 48 antichains. The Lean development also contains
+    supporting finite-poset, fixed-token, and abstract-support components. The
+    classical rotation semantics, stable-matching/downset correspondence,
+    connection from rotations to the abstract token model, and lower-bound
+    construction are outside the advertised formalization.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Quot.sound", "Classical.choice"]
   main_results:
-    - "F6ConvexWindow.totalAntichains_le_48"
+    - declaration: "F6ConvexWindow.totalAntichains_le_48"
+      file: "lean/StableMarriageF6/F6ConvexWindow.lean"
+      sorry_count: 0
+      axioms: ["propext", "Quot.sound", "Classical.choice"]
+      comparator_config: "palomar/comparator.json"
 
 automation:
   methods:
