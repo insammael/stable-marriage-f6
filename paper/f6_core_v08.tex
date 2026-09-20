@@ -4,6 +4,10 @@
 \usepackage{enumitem}
 \numberwithin{equation}{section}
 \usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={Small Rotation Blocks and the Order-Six Stable Marriage Problem},
+  pdfauthor={Myunglae Jo}
+}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -36,10 +40,8 @@ the bound.  We show that order-six stable-marriage rotation posets satisfy
 these hypotheses by examining convex rotation blocks and their fixed partner
 pools.  This gives a structural upper bound of $48$ stable matchings, matching
 the lower bound already provided by Benjamin, Converse, and Krieger in 1995.
-Equality forces fifteen rotations, all of size two, and makes all $36$
-man--woman pairs attainable.  Accompanying Lean files verify the fixed-token, abstract
-support, and finite-poset components; the connection to classical rotation
-semantics is given in the human proof.
+Equality forces fifteen rotations, all of size two, and every one of the $36$
+man--woman pairs occurs in some stable matching.
 \end{abstract}
 
 \section{Introduction}
@@ -55,18 +57,24 @@ this maximum is a classical problem; see Gusfield and Irving
 \cite{BenjaminCK1995} constructed an order-six instance with $48$ stable
 matchings in 1995.  Thurber \cite{Thurber2002} subsequently developed further
 lower-bound constructions.  Here we prove the matching order-six upper bound
-by a local restriction on rotation posets and a sharp abstract poset theorem.
+by a local restriction on rotation posets and a sharp abstract poset
+theorem.\footnote{A 2026 Biola departmental page reports the same value; at
+the time of writing, we have not located a public proof and make no priority
+claim.  Biola University, Department of Math and Computer Science,
+``Current Students: Completed Projects,'' entry for Roman Parks (2026),
+\url{https://www.biola.edu/math-and-computer-science-department/current-students},
+accessed September 11, 2026.}
 
 The use of rotation posets and their downsets is classical
 \cite{IrvingLeather1986}.  Karlin, Oveis Gharan, and Weber
 \cite{KarlinOGW2018} obtain an exponential bound by extracting structural
 properties of these posets, and Palmer and P\'alv\"olgyi
 \cite{PalmerPalvolgyi2022} give a substantially smaller exponential bound
-using an entropy argument.  We work within this established framework.
-In particular, the downset correspondence, shared-agent comparability, and
-the global rotation bound are not new ingredients of the present argument.
-
-Our local input concerns an order-convex block $Q$ of rotations.  If the
+using an entropy argument.  We use the classical rotation-poset framework,
+including the downset correspondence
+\cite{IrvingLeather1986,GusfieldIrving1989} and shared-agent comparability
+\cite[Claim~4.6]{KarlinOGW2018}; the global rotation bound is also classical.
+Our new local input concerns an order-convex block $Q$ of rotations.  If the
 block uses $b$ men, a consecutive execution keeps their partners in a fixed
 pool and gives $2|Q|\le b(b-1)$.  For three men, a token-return obstruction
 sharpens the conclusion to $|Q|\le2$.  This differs in its hypotheses and
@@ -82,19 +90,11 @@ antichains.  Its proof couples the counts of two- and three-element
 antichains, rather than classifying the possible posets.  We give an explicit
 extremal poset and record necessary equality conditions for stable-marriage
 instances.  The resulting local-to-global upper-bound proof does not use an
-exhaustive classification of preference profiles or saturated rotation
-instances.  The consecutiveness property of an already ordered family of
+exhaustive classification of preference profiles.  The consecutiveness
+property of an already ordered family of
 maximal antichains is known \cite{DusartHC2024}; the relevant step here is
 that our hypotheses order the entire family of three-element antichains
 and allow the two counts to be coupled.
-
-A 2026 departmental project announcement at Biola University reports the
-same numerical result; at the time of writing, we were unable to locate a
-public proof, and we make no priority claim.\footnote{Biola University,
-Department of Math and Computer Science, ``Current Students: Completed
-Projects,'' entry for Roman Parks (2026),
-\url{https://www.biola.edu/math-and-computer-science-department/current-students},
-accessed September 11, 2026.}
 
 \section{Rotation blocks}
 
@@ -105,8 +105,8 @@ We recall their properties, rather than redefine a rotation by its list
 representation.  An exposed rotation is represented by a cyclic list
 $((m_0,w_0),\ldots,(m_{k-1},w_{k-1}))$ of matched pairs satisfying the
 standard rotation conditions, with $k\ge2$ distinct participating men and
-distinct current partners.  An arbitrary list of matched pairs is not a
-rotation.  Elimination replaces $(m_i,w_i)$ by $(m_i,w_{i+1})$, with indices
+distinct current partners.  Elimination replaces $(m_i,w_i)$ by
+$(m_i,w_{i+1})$, with indices
 modulo $k$, leaves nonparticipants unchanged, and yields a stable matching.
 Each participating man strictly prefers $w_i$ to $w_{i+1}$.
 
@@ -192,8 +192,10 @@ rotations in the window.  They contribute at least six man--rotation
 incidences.  On the other hand, each of at most three men can occur at most
 twice.  Equality is therefore forced: there are exactly three men, all
 three rotations have support two, and every man occurs in exactly two of
-the three supports.  Thus, naming $x$ as the man common to the first and third supports
-and $a,b$ as the other two men, the supports in temporal order are
+the three supports.  Thus the three two-element supports form the three
+edges of the triangle on these three men.  Naming $x$ as the man common to
+the first and third supports and $a,b$ as the other two men, the supports
+in temporal order are
 \[
         \{x,a\},\qquad \{a,b\},\qquad \{x,b\}
 \]
@@ -207,34 +209,6 @@ That man participated twice, however, and became strictly worse at each
 participation.  He cannot return to his initial partner.  This contradiction
 proves $|Q|\le2$.
 \end{proof}
-
-\begin{remark}[Restriction to the participating agents]\label{rem:restriction}
-There is a complementary interpretation of a nonempty convex block $Q$.
-Let $J=(\down Q)\setminus Q$, let $B=B(Q)$, and let $W$ be the partners
-of $B$ in the matching corresponding to $J$.  For every downset $K$ of the
-induced poset $Q$, the set $J\cup K$ is a downset of the full rotation
-poset.  Indeed, if $y\in J$ and $x\le y$, then $x\in J$ because
-$J$ is a downset.  If $y\in K\subseteq Q$ and $x\le y$, then
-$x\in\down Q=J\cup Q$.  If $x\in Q$, the induced-downset property
-of $K$ gives $x\in K$; otherwise $x\in J$.
-Its stable matching restricts to a stable matching of the instance
-obtained by restricting preferences to $B$ and $W$: any blocking pair in
-the restriction would also block the global matching.  If $K_1\ne K_2$, then $J\cup K_1\ne J\cup K_2$, so the
-stable-matching/downset bijection gives distinct global stable matchings.
-During the $Q$-window all matching changes occur inside $B\times W$;
-outside $B\times W$ the matching is fixed.  Hence the two global matchings
-can differ only through their restrictions to $B\times W$, and those
-restrictions are distinct.
-Writing $\mathcal J(Q)$ for the downsets of $Q$, we obtain
-\[
-        |Q|+1\le |\mathcal J(Q)|\le f(|B|).
-\]
-The first inequality follows from the prefixes of a linear extension of
-$Q$.  Using the elementary exact values $f(2)=2$ and $f(3)=3$, this also
-recovers the two numerical small-block capacity conclusions.  We retain the
-direct token proof because it supplies the participation/incidence bound
-used later and does not use those external small-order values.
-\end{remark}
 
 \begin{remark}\label{rem:local-global}
 For the full rotation set of an order-$N$ instance,
@@ -387,9 +361,8 @@ forbidden configuration.
 
 \begin{remark}\label{rem:graph-ci2}
 Equivalently, the incomparability graph of a $\mathrm{CI2}$ poset has no
-induced diamond and no induced $K_{2,3}$.  Thus the pure order-theoretic
-part of the proof concerns a restricted class of cocomparability graphs.
-Antichains of the poset are precisely cliques of its incomparability graph.
+induced diamond and no induced $K_{2,3}$; antichains of the poset are
+precisely cliques of its incomparability graph.
 \end{remark}
 
 \section{A finite-poset bound}
@@ -462,7 +435,7 @@ Order all three-element antichains as
         \down T_1\subsetneq\cdots\subsetneq\down T_t,
         \quad t=A_3.
 \]
-The following no-re-entry property is the standard consecutiveness
+We shall use the following no-re-entry property, the usual consecutiveness
 property for ordered maximal antichains; see
 \cite[Proposition~2.4 in the preprint version]{DusartHC2024}.
 It applies here because a three-element antichain is maximal in a
@@ -576,9 +549,13 @@ point.  Therefore
 \end{equation}
 
 Let $e(U)$ denote the number of incomparable pairs with both endpoints in
-$U$.  We separate two localization steps.  First localize the possible new
-cross edges at a transition
-$T_i\to T_{i+1}$.  If
+$U$.
+
+\emph{Claim 1.}  At a transition $T_i\to T_{i+1}$, the number of new cross
+incomparable pairs is zero if $T_i\cap T_{i+1}\ne\varnothing$, and at most
+three if $T_i\cap T_{i+1}=\varnothing$.
+
+To localize the possible new cross pairs, let
 \[
  x\in U_i\setminus T_i,\qquad
  y\in T_{i+1}\setminus U_i,
@@ -586,7 +563,7 @@ $T_i\to T_{i+1}$.  If
 choose $j<i$ with $x\in T_j$.  Since $\down T_j\subseteq\down T_i$
 and $x\notin T_i$, some member of $T_i$ lies strictly above $x$;
 Lemma~\ref{lem:triple} therefore places $x$ in $L(T_i)$.
-Analogously, $y\in T_{i+1}\setminus U_i$ cannot lie below a member
+The point $y\in T_{i+1}\setminus U_i$ cannot lie below a member
 $z$ of $T_i$: the ideal inclusion would give $z\le w$ for some
 $w\in T_{i+1}$, contradicting that $T_{i+1}$ is an antichain.
 Thus Lemma~\ref{lem:triple} places $y$ on the upper side of $T_i$,
@@ -622,7 +599,13 @@ Induction over the transitions gives
 e(U)\le3t+3m.
 \end{equation}
 
-For the second localization step, let $x\notin U$.  For every triple
+\emph{Claim 2.}  Every $x\notin U$ has at most two incomparable neighbors
+in $U$:
+\begin{equation}\label{eq:outsider-neighbor-bound}
+|\Inc(x)\cap U|\le2.
+\end{equation}
+
+For every triple
 $T_i$, the first paragraph of
 Lemma~\ref{lem:triple} puts $x$ either in $L(T_i)$ or in $U(T_i)$.
 These alternatives are monotone along the ideal order: $x$ cannot be below
@@ -639,12 +622,9 @@ Every vertex in an earlier triple but outside $T_c$ lies below $T_c$ and
 therefore below $x$ by \eqref{eq:lower-upper-separation}; dually every later vertex outside
 $T_{c+1}$ lies above $x$.  Hence all incomparable neighbors of $x$ in
 $U$ lie in $T_c\cup T_{c+1}$.  The first paragraph of
-Lemma~\ref{lem:triple} gives at most one such neighbor in each triple, so
-\begin{equation}\label{eq:outsider-neighbor-bound}
-|\Inc(x)\cap U|\le2.
-\end{equation}
-If all triples lie on one side of $x$, the same argument gives the stronger
-bound one.
+Lemma~\ref{lem:triple} gives at most one such neighbor in each triple.
+The endpoint cases are handled by the same localization using $T_1$ or
+$T_t$.  This proves Claim~2.
 
 Put $q=15-|U|$.  Combining
 \eqref{eq:union-pair-bound} and \eqref{eq:outsider-neighbor-bound} with
@@ -695,8 +675,7 @@ Since $a\le\lfloor n/2\rfloor$,
 \begin{remark}
 The endpoint $n=15$ is the only place where the separate estimates on
 $A_2$ and $A_3$ are insufficient.  Lemma~\ref{lem:n15} uses the ordered
-family of three-element antichains to couple the two counts; no
-classification of fifteen-element posets is involved.
+family of three-element antichains to couple the two counts.
 \end{remark}
 
 \begin{theorem}[The finite-poset theorem]\label{thm:poset48}
@@ -813,8 +792,7 @@ Every inequality is an equality.  Consequently each support has size two
 and each $d_m$ equals five.  A man sees his initial partner and five
 subsequent, strictly worse partners along the sequence.  These six distinct
 partners exhaust the six women, and every intermediate matching is stable.
-Thus all $36$ man--woman pairs are attainable.  The conclusion is a set of
-necessary conditions, not a uniqueness or sufficiency assertion.
+Thus every man--woman pair occurs in some stable matching.
 \end{proof}
 
 \begin{remark}[The classical example and $P_*$]\label{rem:ds3-pstar}
@@ -823,8 +801,7 @@ sharp example of Proposition~\ref{prop:explicit-extremal}.  A direct finite
 reconstruction of its stable-matching lattice gives $15$ join-irreducibles
 whose poset is isomorphic to $P_*$; an explicit isomorphism and reproducible
 certificate are given in the Supplementary Material.  This observation is
-not used in the upper-bound proof and is not asserted as a
-uniqueness/classification statement.
+not used in the upper-bound proof.
 \end{remark}
 
 \section{Verification note}
@@ -835,12 +812,14 @@ bounds, the support-poset implication from explicit capacity hypotheses to
 width at most three and $\mathrm{CI2}$, and the finite-poset bound of
 Theorem~\ref{thm:poset48}, including its fifteen-element endpoint.
 The formalization is a verification aid, not a logical dependency of the
-human proof.
+manuscript proof.
 The connection from actual rotations to the token model and the standard
-stable-matching--downset correspondence remain human mathematics supported
-by the classical references above.
+stable-matching--downset correspondence is handled in the manuscript rather
+than formalized in Lean.
 The Supplementary Material records the precise formalization scope and
 reproducibility details.
+The accompanying Lean sources and reproducibility artifacts are available at
+\url{https://github.com/insammael/stable-marriage-f6}.
 
 \paragraph{Declarations.} Generative-AI tools were used as aids for proof exploration, Lean
 formalization, literature searching, code preparation, and manuscript

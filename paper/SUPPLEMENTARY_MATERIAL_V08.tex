@@ -4,8 +4,12 @@
 \usepackage[T1]{fontenc}
 \setlength{\emergencystretch}{3em}
 \usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={Supplementary Material: Formalization Scope and Explicit-Example Checks},
+  pdfauthor={Myunglae Jo}
+}
 \title{Supplementary Material\\Formalization Scope and Explicit-Example Checks}
-\author{}
+\author{Myunglae Jo}
 \date{}
 \begin{document}
 \maketitle
@@ -14,8 +18,8 @@
 The companion source package verifies selected finite combinatorial components
 of \emph{Small Rotation Blocks and the Order-Six Stable Marriage Problem}.
 It is not an end-to-end Lean formalization of stable marriage or of the
-statement $f(6)=48$.  The manuscript supplies the complete human upper-bound
-argument and cites the published lower-bound construction.
+statement $f(6)=48$.  The manuscript supplies the complete upper-bound argument
+and cites the published lower-bound construction.
 
 \section*{S2. Fixed-token combinatorics}
 The module \texttt{F6SmallBlockTokenCapacity.lean} uses fixed finite types
@@ -29,8 +33,9 @@ TokenRun.THREE_SITE_CAPACITY
 TokenRun.SMALL_BLOCK_TOKEN_CAPACITIES
 TokenRun.SIX_SITE_INCIDENCE_OPTIONAL
 \end{verbatim}
-in namespace \texttt{F6SmallBlockTokenCapacity}.  They prove the
-participation bound $|B|-1$, the capacities $q\le1$ for $|B|\le2$ and
+in namespace \texttt{F6SmallBlockTokenCapacity}.  Writing $q$ for the number
+of transitions in a run, they prove the participation bound $|B|-1$, the
+capacities $q\le1$ for $|B|\le2$ and
 $q\le2$ for $|B|\le3$, and $q\le15$ for $|B|\le6$.  The three-participant proof includes incidence
 equality, forced pair swaps, and token return.
 
@@ -38,14 +43,13 @@ equality, forced pair swaps, and token return.
 The module \texttt{F6RotationSupportCI2.lean} has an abstract finite poset
 $R$ and a support map to a finite set of at most six participants.  It assumes
 support size at least two and comparability of elements whose supports
-intersect.  The hypotheses \texttt{HCAP2} and \texttt{HCAP3} explicitly
-assert the capacities for convex subsets using at most two and three
-participants.  From these hypotheses, the declaration
+intersect.  The capacities for convex subsets using at most two and three
+participants are the explicit hypotheses \texttt{HCAP2} and \texttt{HCAP3}.
+From these hypotheses, the declaration
 \begin{verbatim}
 F6RotationSupport.widthLE3_and_ci2_of_rotation_support
 \end{verbatim}
-proves width at most three and CI2.  These capacity hypotheses are visible
-arguments, not hidden axioms.  The source package does not construct actual
+proves width at most three and CI2.  The source package does not construct actual
 stable-marriage rotations or formally connect their execution to the abstract
 token model; that connection is made in the manuscript.
 
@@ -90,7 +94,9 @@ It pins Lean 4.27.0 and mathlib v4.27.0; the mathlib commit is
 \begin{quote}\ttfamily\small
 a3a10db0e9d66acbebf76c5e6a135066525ac900.
 \end{quote}
-For the public repository, the audited source files are exposed
+The public source and reproducibility repository is
+\url{https://github.com/insammael/stable-marriage-f6}.
+In that repository, the audited source files are exposed
 directly under \texttt{lean/} and migrated to a Palomar-supported Lean
 toolchain, with the toolchain, Mathlib revision, and transitive dependencies
 pinned by \texttt{lean-toolchain}, \texttt{lakefile.toml}, and the committed
@@ -100,21 +106,17 @@ lake build
 lake env lean palomar/AxiomAudit.lean
 \end{verbatim}
 The v08 release audit records the build and axiom outputs and separately
-checks the migrated source against the frozen v07 source.  The support module
-may emit unused-section-variable linter warnings; these are not proof
-admissions.
+checks the migrated source against the frozen v07 source.
 The reported load-bearing axioms are \texttt{propext},
 \texttt{Classical.choice}, and \texttt{Quot.sound}.
 
-\section*{S6. Scope of the human statements}
+\section*{S6. Components outside the formalization}
 The restricted-instance observation, the explicit extremal fifteen-element
-poset, the necessary equality conditions, and the $DS_3$--$P_*$ isomorphism
-are human statements, not Lean-verified statements in the bundled formalization.
-The general order-$N$ support-budget statement and the stable-matching--downset
-correspondence also remain outside the bundled formal development.
-These statements are not formalized in the accompanying Lean development.
-The upper bound does not rely
-on the auxiliary example calculations below.
+poset, the necessary equality conditions, the $DS_3$--$P_*$ isomorphism,
+the general order-$N$ support-budget statement, and the
+stable-matching--downset correspondence remain outside the bundled
+formalization.  The upper bound does not rely on the auxiliary
+example calculations below.
 
 \section*{S7. An explicit extremal poset}
 For $P_* = \{1,\ldots,5\}\times\{1,2,3\}$, put
@@ -127,8 +129,8 @@ The manuscript directly proves that $P_*$ has width three and CI2.
 Its antichain counts are $(1,15,27,5)$, totaling $48$.  An auxiliary check
 enumerated all $2^{15}$ subsets, tested pairwise incomparability, and tested
 CI2 for every comparable pair.  It returned the same counts, no larger
-antichains, and maximum common-incomparability size two.  This verifies one
-explicit extremal example and does not classify extremal posets.
+antichains, and maximum common-incomparability size two.  This independently
+checks the explicit extremal example.
 
 \section*{S8. A classical order-six lower-bound instance}
 The preference instance used by the auxiliary checker is the $DS_3$
@@ -164,8 +166,6 @@ recovered $15$ join-irreducibles of the complete stable-matching lattice,
 with antichain counts $(1,15,27,5)$, and found all $36$ pairs attainable.
 All $15$ join-irreducible cover moves have two-man support, and each man
 participates five times.
-These are checks of one instance, not a proof of the universal upper bound
-or of the necessity statements for every extremal instance.
 
 \subsection*{S8.1. Explicit isomorphism certificate}
 Let $r_1,\ldots,r_{15}$ be the join-irreducibles in the deterministic order
@@ -209,10 +209,8 @@ $\operatorname{Ji}(\mathcal J(R))$.
 Combining this identification with the classical correspondence between
 the stable-matching lattice and $\mathcal J(R)$, where $R$ is the rotation
 poset (see the Irving--Leather reference in the manuscript), shows that
-this join-irreducible poset is isomorphic to the rotation poset of $DS_3$.  This is a finite certificate for one extremal example.
-It is not used in the universal upper bound and does not prove uniqueness
-of the extremal rotation poset.  No novelty or priority claim is made for
-this isomorphism.
+this join-irreducible poset is isomorphic to the rotation poset of $DS_3$.
+This finite certificate is auxiliary to the universal upper-bound proof.
 
 \section*{S9. Reproducing the auxiliary checks}
 The supplementary package includes \texttt{AUXILIARY\_CHECKS/}, containing
@@ -224,8 +222,7 @@ python3 check_ds3_pstar.py
 The checker uses only the Python standard library.  The command regenerates\newline
 \texttt{DS3\_PSTAR\_CHECK.json} and must reproduce the bundled expected JSON
 exactly, byte-for-byte; its expected hash is recorded in the README and
-\texttt{SHA256SUMS.txt}.  These auxiliary checks concern one explicit
-example and are not a universal proof or Lean verification.
+\texttt{SHA256SUMS.txt}.
 
 \begin{thebibliography}{9}
 \bibitem{BenjaminCK1995}
