@@ -1,0 +1,10 @@
+Third-party proof source:
+  File: StableMarriageF6/DilworthTheorem.lean
+  Repository: https://github.com/sneed-and-feed/lean-theorems-1
+  Frozen commit: 4fce2c92ad4321064a06afdc86d0272bc625ce14
+  Frozen source SHA-256:
+    bfbd7c9505c0bdc4d8ba7ff49b3a1b39243ee35f3ad21d87a287a3df3a48faea
+  Repository license: CC0-1.0 (public domain dedication)
+
+The bundled source is byte-for-byte identical to the frozen source used in
+the certified Dilworth bridge.

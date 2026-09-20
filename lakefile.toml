@@ -1,0 +1,22 @@
+name = "stable_marriage_f6_public"
+version = "0.8.0"
+defaultTargets = ["StableMarriageF6", "PalomarChallenge", "PalomarSolution"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "0df444a360eaa60ab8c11dca51a86af692955474"
+
+[[lean_lib]]
+name = "StableMarriageF6"
+srcDir = "lean"
+
+[[lean_lib]]
+name = "PalomarChallenge"
+srcDir = "."
+roots = ["palomar.Challenge"]
+
+[[lean_lib]]
+name = "PalomarSolution"
+srcDir = "."
+roots = ["palomar.Solution"]

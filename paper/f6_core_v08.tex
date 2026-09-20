@@ -1,0 +1,916 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\numberwithin{equation}{section}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Inc}{\operatorname{Inc}}
+\newcommand{\down}{\mathord{\downarrow}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\SM}{\mathcal S}
+
+\title{Small Rotation Blocks and the Order-Six Stable Marriage Problem}
+\author{Myunglae Jo}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that a finite poset with at most fifteen elements, width at most
+three, and the following common-incomparability property has at most $48$
+antichains: for every $x<y$, the elements incomparable with both $x$ and $y$
+form a chain of size at most two.  An explicit fifteen-element poset attains
+the bound.  We show that order-six stable-marriage rotation posets satisfy
+these hypotheses by examining convex rotation blocks and their fixed partner
+pools.  This gives a structural upper bound of $48$ stable matchings, matching
+the lower bound already provided by Benjamin, Converse, and Krieger in 1995.
+Equality forces fifteen rotations, all of size two, and makes all $36$
+man--woman pairs attainable.  Accompanying Lean files verify the fixed-token, abstract
+support, and finite-poset components; the connection to classical rotation
+semantics is given in the human proof.
+\end{abstract}
+
+\section{Introduction}
+
+For a strict complete stable-marriage instance $I$, let $\SM(I)$ denote its
+set of stable matchings and put
+\[
+        f(n)=\max_I |\SM(I)|,
+\]
+where the maximum is over instances with $n$ men and $n$ women.  Determining
+this maximum is a classical problem; see Gusfield and Irving
+\cite{GusfieldIrving1989}.  Benjamin, Converse, and Krieger
+\cite{BenjaminCK1995} constructed an order-six instance with $48$ stable
+matchings in 1995.  Thurber \cite{Thurber2002} subsequently developed further
+lower-bound constructions.  Here we prove the matching order-six upper bound
+by a local restriction on rotation posets and a sharp abstract poset theorem.
+
+The use of rotation posets and their downsets is classical
+\cite{IrvingLeather1986}.  Karlin, Oveis Gharan, and Weber
+\cite{KarlinOGW2018} obtain an exponential bound by extracting structural
+properties of these posets, and Palmer and P\'alv\"olgyi
+\cite{PalmerPalvolgyi2022} give a substantially smaller exponential bound
+using an entropy argument.  We work within this established framework.
+In particular, the downset correspondence, shared-agent comparability, and
+the global rotation bound are not new ingredients of the present argument.
+
+Our local input concerns an order-convex block $Q$ of rotations.  If the
+block uses $b$ men, a consecutive execution keeps their partners in a fixed
+pool and gives $2|Q|\le b(b-1)$.  For three men, a token-return obstruction
+sharpens the conclusion to $|Q|\le2$.  This differs in its hypotheses and
+parameters from the support estimate in \cite[Claim~4.7]{KarlinOGW2018},
+which applies to arbitrary rotation subsets and counts agents of both sexes.
+For comparable rotations $\alpha<\beta$, our argument places the rotations
+incomparable with both on at most $N-3$ men in an order-$N$ instance.
+At $N=6$, this yields the condition called $\mathrm{CI2}$ below.
+
+The principal counting result is that every poset with at most fifteen
+elements, width at most three, and $\mathrm{CI2}$ has at most $48$
+antichains.  Its proof couples the counts of two- and three-element
+antichains, rather than classifying the possible posets.  We give an explicit
+extremal poset and record necessary equality conditions for stable-marriage
+instances.  The resulting local-to-global upper-bound proof does not use an
+exhaustive classification of preference profiles or saturated rotation
+instances.  The consecutiveness property of an already ordered family of
+maximal antichains is known \cite{DusartHC2024}; the relevant step here is
+that our hypotheses order the entire family of three-element antichains
+and allow the two counts to be coupled.
+
+A 2026 departmental project announcement at Biola University reports the
+same numerical result; at the time of writing, we were unable to locate a
+public proof, and we make no priority claim.\footnote{Biola University,
+Department of Math and Computer Science, ``Current Students: Completed
+Projects,'' entry for Roman Parks (2026),
+\url{https://www.biola.edu/math-and-computer-science-department/current-students},
+accessed September 11, 2026.}
+
+\section{Rotation blocks}
+
+We use rotations and exposure in their standard sense
+\cite{IrvingLeather1986,GusfieldIrving1989}; for the definition and the
+elimination operation, see also \cite[Definitions~4.1 and~4.4]{KarlinOGW2018}.
+We recall their properties, rather than redefine a rotation by its list
+representation.  An exposed rotation is represented by a cyclic list
+$((m_0,w_0),\ldots,(m_{k-1},w_{k-1}))$ of matched pairs satisfying the
+standard rotation conditions, with $k\ge2$ distinct participating men and
+distinct current partners.  An arbitrary list of matched pairs is not a
+rotation.  Elimination replaces $(m_i,w_i)$ by $(m_i,w_{i+1})$, with indices
+modulo $k$, leaves nonparticipants unchanged, and yields a stable matching.
+Each participating man strictly prefers $w_i$ to $w_{i+1}$.
+
+The Irving--Leather correspondence \cite{IrvingLeather1986} identifies
+stable matchings with downsets of the rotation poset.  A downset is realized
+by eliminating its rotations from the man-optimal stable matching in a
+linear extension of the precedence order; see \cite{GusfieldIrving1989}
+and \cite[Theorem~4.5]{KarlinOGW2018}.  Rotations sharing an agent are
+comparable \cite[Claim~4.6]{KarlinOGW2018}.
+
+For a rotation $\rho$, write $\supp(\rho)$ for its set of participating men.
+For $Q$ a set of rotations, put
+\[
+        B(Q)=\bigcup_{\rho\in Q}\supp(\rho).
+\]
+
+\begin{lemma}[Convex rotation windows]\label{lem:convex-window}
+Let $Q$ be an order-convex subset of the rotation poset.  Then there are
+stable matchings $M_0,M_1$ such that, starting from $M_0$, the rotations of
+$Q$ can be eliminated consecutively in a linear extension of the induced
+order on $Q$, producing $M_1$.
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+        I=\down Q,\qquad J=I\setminus Q.
+\]
+The set $I$ is a downset.  We claim that $J$ is also a downset.  Let
+$y\in J$ and $x\le y$.  Since $y\in I$, there is $z\in Q$ with $y\le z$,
+and hence $x\in I$.  If $x\in Q$, then
+\[
+        x\le y\le z,\qquad x,z\in Q,
+\]
+so convexity would imply $y\in Q$, a contradiction.  Hence $x\in J$.
+
+Choose a linear extension of $J$, followed by a linear extension of the
+induced order on $Q$.  This concatenation is a linear extension of $I$:
+every predecessor of an element of $J$ again belongs to $J$, while a
+predecessor of an element of $Q$ belongs to $J$ or to $Q$.  By the standard
+realization theorem for closed sets of rotations, this gives a valid
+elimination sequence for $I$.  Its $J$-prefix reaches the stable matching
+corresponding to $J$, and its remaining suffix eliminates exactly the
+rotations in $Q$.
+\end{proof}
+
+\begin{lemma}[Small-block capacity]\label{lem:small-block}
+Let $Q$ be a finite order-convex set of rotations and put $b=|B(Q)|$.
+Then every man in $B(Q)$ occurs in at most $b-1$ rotations of $Q$.  Hence
+\[
+        2|Q|\le b(b-1).
+\]
+Moreover,
+\[
+        b\le2\Longrightarrow |Q|\le1,
+        \qquad
+        b\le3\Longrightarrow |Q|\le2.
+\]
+\end{lemma}
+
+\begin{proof}
+Execute $Q$ as the consecutive window supplied by
+Lemma~\ref{lem:convex-window}.  Let $W$ be the set of women matched to
+$B(Q)$ at the beginning of this window.  Throughout the window, the men of
+$B(Q)$ remain matched bijectively to exactly the same set $W$.  Indeed, at
+each step the current partners of the participating subset are merely
+cyclically permuted, while every other man of $B(Q)$ is unchanged.
+
+Fix $m\in B(Q)$.  Whenever $m$ participates, his partner becomes strictly
+worse; between such steps his partner is unchanged.  Thus the initial
+partner of $m$ and the partners immediately following his successive
+participations are all distinct elements of $W$.  Since $|W|=b$, the man
+$m$ participates at most $b-1$ times.  Summing over men gives
+\[
+ \sum_{\rho\in Q}|\supp(\rho)|
+ \le b(b-1).
+\]
+Every rotation has at least two participating men, proving
+$2|Q|\le b(b-1)$.  The assertion for $b\le2$ follows immediately.
+
+Suppose now that $b\le3$ and $|Q|\ge3$, and consider the first three
+rotations in the window.  They contribute at least six man--rotation
+incidences.  On the other hand, each of at most three men can occur at most
+twice.  Equality is therefore forced: there are exactly three men, all
+three rotations have support two, and every man occurs in exactly two of
+the three supports.  Thus, naming $x$ as the man common to the first and third supports
+and $a,b$ as the other two men, the supports in temporal order are
+\[
+        \{x,a\},\qquad \{a,b\},\qquad \{x,b\}
+\]
+in that order.
+
+A rotation with exactly two participating men swaps their current partners:
+all nonparticipants are fixed, and the two current partner tokens must be
+exchanged.  Consequently the three support-two eliminations above return
+the man common to the first and third supports to his initial partner.
+That man participated twice, however, and became strictly worse at each
+participation.  He cannot return to his initial partner.  This contradiction
+proves $|Q|\le2$.
+\end{proof}
+
+\begin{remark}[Restriction to the participating agents]\label{rem:restriction}
+There is a complementary interpretation of a nonempty convex block $Q$.
+Let $J=(\down Q)\setminus Q$, let $B=B(Q)$, and let $W$ be the partners
+of $B$ in the matching corresponding to $J$.  For every downset $K$ of the
+induced poset $Q$, the set $J\cup K$ is a downset of the full rotation
+poset.  Indeed, if $y\in J$ and $x\le y$, then $x\in J$ because
+$J$ is a downset.  If $y\in K\subseteq Q$ and $x\le y$, then
+$x\in\down Q=J\cup Q$.  If $x\in Q$, the induced-downset property
+of $K$ gives $x\in K$; otherwise $x\in J$.
+Its stable matching restricts to a stable matching of the instance
+obtained by restricting preferences to $B$ and $W$: any blocking pair in
+the restriction would also block the global matching.  If $K_1\ne K_2$, then $J\cup K_1\ne J\cup K_2$, so the
+stable-matching/downset bijection gives distinct global stable matchings.
+During the $Q$-window all matching changes occur inside $B\times W$;
+outside $B\times W$ the matching is fixed.  Hence the two global matchings
+can differ only through their restrictions to $B\times W$, and those
+restrictions are distinct.
+Writing $\mathcal J(Q)$ for the downsets of $Q$, we obtain
+\[
+        |Q|+1\le |\mathcal J(Q)|\le f(|B|).
+\]
+The first inequality follows from the prefixes of a linear extension of
+$Q$.  Using the elementary exact values $f(2)=2$ and $f(3)=3$, this also
+recovers the two numerical small-block capacity conclusions.  We retain the
+direct token proof because it supplies the participation/incidence bound
+used later and does not use those external small-order values.
+\end{remark}
+
+\begin{remark}\label{rem:local-global}
+For the full rotation set of an order-$N$ instance,
+Lemma~\ref{lem:small-block} recovers the classical bound
+$|R|\le N(N-1)/2$.  The point needed here is the local version: the same
+incidence argument applies to every convex rotation block, with the number
+of men actually used by that block in place of $N$.  The global bound itself
+is classical; see, for example, \cite{BhatnagarGR2008}.
+\end{remark}
+
+\begin{corollary}\label{cor:r15}
+An order-six stable-marriage instance has at most fifteen rotations.
+\end{corollary}
+
+\begin{proof}
+Apply Lemma~\ref{lem:small-block} to the entire rotation set $R$, which is
+itself convex.  If $b=|B(R)|\le6$, then the proof of that lemma gives
+\[
+        2|R|\le b(b-1)\le6\cdot5=30.
+\]
+Hence $|R|\le15$.
+\end{proof}
+
+\begin{corollary}\label{cor:width3}
+The rotation poset of an order-six instance has width at most three.
+\end{corollary}
+
+\begin{proof}
+Rotations in an antichain cannot share a man, since rotations sharing an
+agent are comparable.  Their male supports are therefore pairwise disjoint,
+and each support has size at least two.  Six men can support at most three
+such rotations.
+\end{proof}
+
+\section{A local structure theorem for order-six rotation posets}
+
+For an element $x$ of a poset, let
+\[
+        \Inc(x)=\{z:z\parallel x\}.
+\]
+
+\begin{proposition}[Common-incomparability support budget]
+\label{prop:common-budget}
+Let $R$ be the rotation poset of an order-$N$ stable-marriage instance, and
+let $\alpha<\beta$.  Put
+\[
+        Z=\Inc(\alpha)\cap\Inc(\beta).
+\]
+Then
+\[
+ |B(Z)|\le N-3,\qquad
+ \operatorname{width}(Z)\le
+ \left\lfloor\frac{N-3}{2}\right\rfloor,
+ \qquad
+ |Z|\le\binom{N-3}{2}.
+\]
+\end{proposition}
+
+\begin{proof}
+Let
+\[
+        A=[\alpha,\beta].
+\]
+The sets $A$ and $Z$ are convex.  Convexity of $A$ is immediate.  If
+$z_1\le y\le z_2$ with $z_1,z_2\in Z$, then $y\le\alpha$ would imply
+$z_1\le\alpha$, while $\alpha\le y$ would imply $\alpha\le z_2$.
+Thus $y\parallel\alpha$, and the same argument with $\beta$ gives
+$y\parallel\beta$.
+
+Every $a\in A$ is incomparable with every $z\in Z$: $a\le z$ would imply
+$\alpha\le z$, while $z\le a$ would imply $z\le\beta$.  Rotations sharing
+a man are comparable, so
+\begin{equation}\label{eq:support-disjoint}
+B(A)\cap B(Z)=\varnothing.
+\end{equation}
+The interval $A$ contains the two distinct rotations $\alpha,\beta$.
+By the two-man part of Lemma~\ref{lem:small-block}, it must therefore use
+at least three men.  Equation~\eqref{eq:support-disjoint} gives
+\begin{equation}\label{eq:support-budget}
+|B(Z)|\le N-3.
+\end{equation}
+
+An antichain in $Z$ consists of rotations with pairwise disjoint male
+supports, each of size at least two.  Hence
+\[
+        \operatorname{width}(Z)
+        \le \left\lfloor\frac{|B(Z)|}{2}\right\rfloor
+        \le \left\lfloor\frac{N-3}{2}\right\rfloor.
+\]
+Finally $Z$ is convex, so Lemma~\ref{lem:small-block} gives
+\[
+        2|Z|\le |B(Z)|(|B(Z)|-1),
+\]
+which together with \eqref{eq:support-budget} yields the stated cardinality bound.
+\end{proof}
+
+\begin{theorem}[Common incomparability]\label{thm:ci2}
+Let $R$ be the rotation poset of an order-six stable-marriage instance.
+For every $\alpha<\beta$ in $R$, the set
+\[
+        Z(\alpha,\beta)=\Inc(\alpha)\cap\Inc(\beta)
+\]
+is a chain and has cardinality at most two.
+\end{theorem}
+
+\begin{proof}
+Proposition~\ref{prop:common-budget} gives $|B(Z)|\le3$ and
+$\operatorname{width}(Z)\le1$, so $Z$ is a chain.  Since $Z$ is convex,
+the three-man part of Lemma~\ref{lem:small-block} gives $|Z|\le2$.
+\end{proof}
+
+This explains why order six is the natural endpoint of the present local
+argument.  For $Z=\Inc(\alpha)\cap\Inc(\beta)$,
+Proposition~\ref{prop:common-budget} gives $|B(Z)|\le N-3$,
+$\operatorname{width}(Z)\le\lfloor(N-3)/2\rfloor$, and
+$|Z|\le\binom{N-3}{2}$.
+At $N=6$, the bounds $|B(Z)|\le3$ and $\operatorname{width}(Z)\le1$
+force a chain on at most three participating men, and the exceptional
+three-man capacity sharpens the cardinality bound to $|Z|\le2$.
+At $N=7$, the same general budget gives only $|B(Z)|\le4$,
+$\operatorname{width}(Z)\le2$, and $|Z|\le6$.
+Thus this mechanism forces the $\mathrm{CI2}$ rigidity used below at order
+six, but the same budget no longer forces it at order seven.
+
+Theorem~\ref{thm:ci2} motivates the following purely order-theoretic
+condition.
+
+\begin{definition}\label{def:ci2}
+A finite poset $P$ has property $\mathrm{CI2}$ if, whenever $x<y$,
+the common incomparability set
+\[
+        \Inc(x)\cap\Inc(y)
+\]
+is a chain of cardinality at most two.
+\end{definition}
+
+\begin{proposition}[Forbidden-pattern form]\label{prop:forbidden}
+A finite poset satisfies $\mathrm{CI2}$ if and only if it has no induced
+subposet isomorphic to $2+1+1$ or to $2+3$, where the summands are mutually
+incomparable chains.
+\end{proposition}
+
+\begin{proof}
+If $\mathrm{CI2}$ fails for $x<y$, then either
+$\Inc(x)\cap\Inc(y)$ contains two incomparable elements, which together
+with $x<y$ induce $2+1+1$, or it contains a three-element chain, which
+together with $x<y$ induces $2+3$.  The converse is immediate from either
+forbidden configuration.
+\end{proof}
+
+\begin{remark}\label{rem:graph-ci2}
+Equivalently, the incomparability graph of a $\mathrm{CI2}$ poset has no
+induced diamond and no induced $K_{2,3}$.  Thus the pure order-theoretic
+part of the proof concerns a restricted class of cocomparability graphs.
+Antichains of the poset are precisely cliques of its incomparability graph.
+\end{remark}
+
+\section{A finite-poset bound}
+
+Let $P$ be a finite poset of width at most three, let $n=|P|$, and let
+$A_j$ denote the number of $j$-element antichains.  Since every antichain
+has size at most three,
+\begin{equation}\label{eq:antichain-decomposition}
+|\A(P)|=1+n+A_2+A_3.
+\end{equation}
+
+We first record the two bounds needed for the generic case.
+
+\begin{lemma}[Triple structure]\label{lem:triple}
+Assume $P$ has width at most three and satisfies $\mathrm{CI2}$.  If
+$A_3>0$, then
+\[
+        A_3\le \left\lfloor\frac{n-1}{2}\right\rfloor.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a three-element antichain and $x\notin T$.  The point $x$ is
+comparable with at least one member of $T$, else $T\cup\{x\}$ would be a
+four-element antichain.  In fact it is comparable with at least two.
+Otherwise, if $x$ were comparable with only $t\in T$, the other two
+members of $T$ would be incomparable elements of
+$\Inc(x)\cap\Inc(t)$, contradicting $\mathrm{CI2}$.  Moreover $x$ cannot
+lie above one member of $T$ and below another, since those two members
+would then be comparable.  Thus every $x\notin T$ lies below at least two
+members of $T$, or above at least two.
+
+Write these alternatives as $x\in L(T)$ and $x\in U(T)$.  If
+$l\in L(T)$ and $u\in U(T)$, the two corresponding two-element subsets of
+$T$ intersect, so $l<t<u$ for some $t\in T$; hence
+\begin{equation}\label{eq:lower-upper-separation}
+L(T)<U(T).
+\end{equation}
+
+Now let $S,T$ be three-element antichains.  We claim that their generated
+ideals are nested.  Suppose first that some $u\in S\setminus T$ lies in
+$U(T)$.  Then no element of $S\setminus T$ can lie in $L(T)$, because
+\eqref{eq:lower-upper-separation} would make it comparable with $u$.  Thus every element of
+$S\setminus T$ lies in $U(T)$.
+
+We show that every $t\in T$ lies in $\down S$.  This is immediate if
+$t\in S$.  Otherwise suppose that $t\not\le s$ for every $s\in S$.
+For $s\in S\cap T$ we have $t\parallel s$.  For
+$s\in S\setminus T$, the point $s$ lies above at least two members of
+$T$.  Hence $t>s$ is impossible: among those two members choose
+$t'\ne t$; then $t'<s<t$, contradicting that $T$ is an antichain.
+Our assumption $t\not\le s$ therefore forces $t\parallel s$ for every
+$s\in S$.  Then $S\cup\{t\}$ is a four-element antichain, contradicting
+the width bound.  Hence $t\le s$ for some $s\in S$, and so
+$\down T\subseteq\down S$.
+
+If no element of $S\setminus T$ lies in $U(T)$, then every such element
+lies in $L(T)$ and hence below a member of $T$.  Thus
+$S\subseteq\down T$ and $\down S\subseteq\down T$.  This proves nesting.
+
+Distinct three-element antichains generate distinct ideals, since the
+maximal elements of $\down T$ are exactly the members of the antichain
+$T$.  Also two distinct triples share at most one point: if $S\ne T$
+shared two points, a point of $S\setminus T$ would be incomparable with
+two members of $T$, contrary to the first paragraph.
+
+Order all three-element antichains as
+\[
+        T_1,\ldots,T_t,\qquad
+        \down T_1\subsetneq\cdots\subsetneq\down T_t,
+        \quad t=A_3.
+\]
+The following no-re-entry property is the standard consecutiveness
+property for ordered maximal antichains; see
+\cite[Proposition~2.4 in the preprint version]{DusartHC2024}.
+It applies here because a three-element antichain is maximal in a
+width-three poset, and the maximal-antichain order agrees with inclusion
+of generated ideals.  We include the short proof for completeness.
+If $i<j<k$ and $x\in T_i\cap T_k$, then
+$x\in T_j$.  Indeed $x\in\down T_j$, so $x\le y$ for some $y\in T_j$;
+also $y\in\down T_k$, so $y\le z$ for some $z\in T_k$.  Since
+$x,z\in T_k$ and $T_k$ is an antichain, $x=y=z$.
+
+It follows that each $T_{i+1}$ meets
+$T_1\cup\cdots\cup T_i$ in at most one point.  The first triple contributes
+three points and every later triple contributes at least two new points.
+Hence
+\[
+        n\ge 3+2(t-1)=2t+1.
+\]
+\end{proof}
+
+\begin{lemma}[Pair bound]\label{lem:pairs}
+Under the assumptions of Lemma~\ref{lem:triple}, if $A_3>0$, then
+\[
+        A_2\le 2n-3.
+\]
+\end{lemma}
+
+\begin{proof}
+By Dilworth's theorem, partition $P$ into three chains
+$C_1,C_2,C_3$.  Because a three-element antichain exists, each chain is
+nonempty.  Consider one chain
+\[
+        C=\{c_1<\cdots<c_a\}.
+\]
+For every $x\notin C$, the set of elements of $C$ incomparable with $x$
+is an interval: if $c_i\le c_j\le c_k$ and $x\parallel c_i,c_k$, then
+$x\parallel c_j$.
+
+Indeed, if the incomparable interval of an outside point $x$ contains
+$r\ge1$ elements of $C$, then $x$ contributes $r$ to the left-hand side
+and $1+(r-1)$ to the right-hand side of
+\begin{equation}\label{eq:chain-interval-count}
+\sum_{c\in C}|\Inc(c)|
+ =
+ N_C+\sum_{i=1}^{a-1}
+ |\Inc(c_i)\cap\Inc(c_{i+1})|,
+\end{equation}
+where $N_C$ is the number of points outside $C$ incomparable with at least
+one point of $C$.  Here $N_C\le n-a$, while every adjacent intersection
+in \eqref{eq:chain-interval-count} has size at most two by $\mathrm{CI2}$.  Therefore
+\[
+        \sum_{c\in C}|\Inc(c)|\le n+a-2.
+\]
+Summing over the three chains counts every incomparable pair exactly twice.
+If $|C_1|+|C_2|+|C_3|=n$, then
+\[
+        2A_2\le (n+|C_1|-2)+(n+|C_2|-2)+(n+|C_3|-2)
+        =4n-6,
+\]
+which proves the claim.
+\end{proof}
+
+\begin{corollary}[Linear antichain growth]\label{cor:linear-growth}
+If $P$ has width three and satisfies $\mathrm{CI2}$, then
+\begin{equation}\label{eq:linear-bound}
+|\A(P)|
+        \le
+        3n-2+\left\lfloor\frac{n-1}{2}\right\rfloor.
+\end{equation}
+In particular, the number of antichains is linear in $n$.
+\end{corollary}
+
+\begin{proof}
+Width three means $A_3>0$.  Substitute the bounds of
+Lemmas~\ref{lem:triple} and \ref{lem:pairs} into
+$|\A(P)|=1+n+A_2+A_3$.
+\end{proof}
+
+\begin{remark}
+The linear behavior is a genuine restriction.  The disjoint union of three
+chains of balanced lengths has width three and
+\[
+        (|C_1|+1)(|C_2|+1)(|C_3|+1)=\Theta(n^3)
+\]
+antichains.  Thus $\mathrm{CI2}$ collapses the possible antichain count from
+cubic to linear growth within width three.
+\end{remark}
+
+For $n\le14$, Corollary~\ref{cor:linear-growth} already gives a bound
+strictly below $48$.  The only remaining issue is the endpoint $n=15$,
+where the generic linear estimate gives $50$.  We need one small tradeoff.
+
+\begin{lemma}[The fifteen-point refinement]\label{lem:n15}
+Let $P$ satisfy the hypotheses above with $n=15$.  If $A_3\ge6$, then
+\[
+        |\A(P)|\le46.
+\]
+\end{lemma}
+
+\begin{proof}
+Order the three-element antichains
+$T_1,\ldots,T_t$ as in Lemma~\ref{lem:triple}, put
+\[
+        U_i=T_1\cup\cdots\cup T_i,\qquad U=U_t,
+\]
+and let $m$ be the number of indices $i<t$ for which
+$T_{i+1}\cap U_i=\varnothing$.  By no re-entry,
+$T_{i+1}\cap U_i\subseteq T_i$, and distinct triples meet in at most one
+point.  Therefore
+\begin{equation}\label{eq:triple-union-card}
+|U|=2t+1+m.
+\end{equation}
+
+Let $e(U)$ denote the number of incomparable pairs with both endpoints in
+$U$.  We separate two localization steps.  First localize the possible new
+cross edges at a transition
+$T_i\to T_{i+1}$.  If
+\[
+ x\in U_i\setminus T_i,\qquad
+ y\in T_{i+1}\setminus U_i,
+\]
+choose $j<i$ with $x\in T_j$.  Since $\down T_j\subseteq\down T_i$
+and $x\notin T_i$, some member of $T_i$ lies strictly above $x$;
+Lemma~\ref{lem:triple} therefore places $x$ in $L(T_i)$.
+Analogously, $y\in T_{i+1}\setminus U_i$ cannot lie below a member
+$z$ of $T_i$: the ideal inclusion would give $z\le w$ for some
+$w\in T_{i+1}$, contradicting that $T_{i+1}$ is an antichain.
+Thus Lemma~\ref{lem:triple} places $y$ on the upper side of $T_i$,
+so $y\in U(T_i)$.  By \eqref{eq:lower-upper-separation}, $x<y$.
+Thus every new incomparability joining a new vertex to the old union
+has its old endpoint in $T_i$.  In what follows, a cross pair excludes
+pairs already internal to the new triple; in particular a shared vertex
+is not an old-only endpoint.
+
+If $T_i$ and $T_{i+1}$ meet in one point $s$, let
+$x\in T_i\setminus\{s\}$ and
+$y\in T_{i+1}\setminus\{s\}$.  The point $x$ lies in $L(T_{i+1})$ and is
+incomparable with $s$, so it must lie below both other members of
+$T_{i+1}$; in particular $x<y$.  Hence a nonempty transition creates no
+cross incomparability.
+
+If the two consecutive triples are disjoint, their bipartite
+incomparability graph is a matching: each point outside a triple is
+incomparable with at most one member of that triple.  Hence an empty
+transition creates at most three cross incomparabilities.  The new triple
+itself contributes three incomparable pairs in either case.  The accounting
+is therefore
+\[
+\begin{array}{c|c|c}
+|T_i\cap T_{i+1}| & \text{new internal pairs} & \text{new cross pairs}\\
+\hline
+1 & 3 & 0\\
+0 & 3 & \le3
+\end{array}
+\]
+Induction over the transitions gives
+\begin{equation}\label{eq:union-pair-bound}
+e(U)\le3t+3m.
+\end{equation}
+
+For the second localization step, let $x\notin U$.  For every triple
+$T_i$, the first paragraph of
+Lemma~\ref{lem:triple} puts $x$ either in $L(T_i)$ or in $U(T_i)$.
+These alternatives are monotone along the ideal order: $x$ cannot be below
+an earlier triple $S$ and above a later triple $T$.  Indeed choose
+$s\in S$ with $x<s$.  Since $\down S\subseteq\down T$, choose
+$u\in T$ with $s\le u$.  If $x$ were above at least two members of $T$,
+one of them, say $v$, would differ from $u$, and
+$v<x<s\le u$ would contradict the antichain property of $T$.
+
+Thus the triples above which $x$ lies form an initial segment and the
+triples below which $x$ lies form a final segment.  If both are nonempty,
+let $T_c$ be the last former triple and $T_{c+1}$ the first latter triple.
+Every vertex in an earlier triple but outside $T_c$ lies below $T_c$ and
+therefore below $x$ by \eqref{eq:lower-upper-separation}; dually every later vertex outside
+$T_{c+1}$ lies above $x$.  Hence all incomparable neighbors of $x$ in
+$U$ lie in $T_c\cup T_{c+1}$.  The first paragraph of
+Lemma~\ref{lem:triple} gives at most one such neighbor in each triple, so
+\begin{equation}\label{eq:outsider-neighbor-bound}
+|\Inc(x)\cap U|\le2.
+\end{equation}
+If all triples lie on one side of $x$, the same argument gives the stronger
+bound one.
+
+Put $q=15-|U|$.  Combining
+\eqref{eq:union-pair-bound} and \eqref{eq:outsider-neighbor-bound} with
+\eqref{eq:triple-union-card} and the trivial bound on pairs among the $q$
+outside points gives
+\begin{equation}\label{eq:pair-tradeoff}
+A_2\le3t+3m+2q+\binom q2,
+        \qquad
+        q=14-2t-m.
+\end{equation}
+Lemma~\ref{lem:triple} gives $t\le7$.  If $t=7$, then $m=q=0$ and
+$A_2\le21$.  If $t=6$, then $m+q=2$; the possibilities
+$(m,q)=(0,2),(1,1),(2,0)$ give respectively
+$A_2\le23,23,24$.  In all cases $t\ge6$,
+\[
+        A_2+A_3\le30,
+\]
+and \eqref{eq:antichain-decomposition} yields $|\A(P)|\le46$.
+\end{proof}
+
+We also need the elementary width-two endpoint.
+
+\begin{lemma}[Width two]\label{lem:width2}
+If $P$ has width at most two, satisfies $\mathrm{CI2}$, and $n\ge2$, then
+\[
+        |\A(P)|
+        \le 2n+\left\lfloor\frac n2\right\rfloor-1.
+\]
+In particular, $|\A(P)|\le36$ when $n\le15$.
+\end{lemma}
+
+\begin{proof}
+Partition $P$ into two nonempty chains $C,D$ of sizes $a\le b$,
+$a+b=n$.  (If $P$ is itself a chain, split it into two nonempty
+subchains.)  As in \eqref{eq:chain-interval-count},
+\[
+        A_2=\sum_{c\in C}|\Inc(c)|
+        \le b+2(a-1).
+\]
+Since $a\le\lfloor n/2\rfloor$,
+\[
+        |\A(P)|=1+n+A_2
+        \le 2n+a-1
+        \le 2n+\left\lfloor\frac n2\right\rfloor-1.
+\]
+\end{proof}
+
+\begin{remark}
+The endpoint $n=15$ is the only place where the separate estimates on
+$A_2$ and $A_3$ are insufficient.  Lemma~\ref{lem:n15} uses the ordered
+family of three-element antichains to couple the two counts; no
+classification of fifteen-element posets is involved.
+\end{remark}
+
+\begin{theorem}[The finite-poset theorem]\label{thm:poset48}
+Let $P$ be a finite poset satisfying
+\[
+        |P|\le15,\qquad \operatorname{width}(P)\le3,
+        \qquad \mathrm{CI2}.
+\]
+Then
+\[
+        |\A(P)|\le48.
+\]
+\end{theorem}
+
+\begin{proof}
+The cases $n\le1$ are immediate.  If $A_3=0$, the width is at most two
+and Lemma~\ref{lem:width2} applies.
+
+Assume $A_3>0$.  If $n\le14$, then
+Corollary~\ref{cor:linear-growth} gives $|\A(P)|\le46$.
+Now let $n=15$.  If $A_3\ge6$, use Lemma~\ref{lem:n15}.  If
+$1\le A_3\le5$, Lemma~\ref{lem:pairs} gives $A_2\le27$, and hence
+\[
+        |\A(P)|=16+A_2+A_3\le16+27+5=48.
+\]
+\end{proof}
+
+\begin{proposition}[An explicit extremal poset]\label{prop:explicit-extremal}
+The constant $48$ in Theorem~\ref{thm:poset48} is attained by
+$P_* = \{1,\ldots,5\}\times\{1,2,3\}$ with strict order
+\begin{equation}\label{eq:explicit-order}
+(i,a)<(j,b)\quad\Longleftrightarrow\quad
+j\ge i+2\ \text{or}\ (j=i+1\ \text{and}\ a\ne b).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The relation is irreflexive.  In two successive strict comparisons the
+level increases by at least two in total, which proves transitivity.
+Thus adjoining equality gives a partial order.
+Within each level all three points are incomparable.  Between consecutive
+levels exactly the three same-coordinate pairs are incomparable; points
+at more distant levels are comparable.  A mixed-level three-element
+antichain is impossible: the singleton in one level would have to share
+its second coordinate with both points in the other level.  It follows that
+the only three-element antichains are the five levels, and none has more
+than three elements.  Hence
+\begin{equation}\label{eq:explicit-counts}
+       A_2=5\binom32+4\cdot3=27,\qquad A_3=5,
+       \qquad |\A(P_*)|=1+15+27+5=48.
+\end{equation}
+To check $\mathrm{CI2}$, take $(i,a)<(j,b)$.  If $j=i+1$, then
+$a\ne b$ and the common incomparability set is
+$\{(i,b),(i+1,a)\}$, a two-element chain.  If $j=i+2$, that set is
+$\{(i+1,a)\}$ when $a=b$, and empty otherwise.  If $j\ge i+3$, it is
+empty.  This checks every comparable pair.
+\end{proof}
+
+\section{The order-six maximum}
+
+\begin{theorem}\label{thm:main}
+The maximum number of stable matchings in a strict complete stable-marriage
+instance with six men and six women is
+\[
+        f(6)=48.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $R$ be the rotation poset of an arbitrary order-six instance.
+Corollaries~\ref{cor:r15} and \ref{cor:width3}, together with
+Theorem~\ref{thm:ci2}, give
+\[
+        |R|\le15,\qquad
+        \operatorname{width}(R)\le3,\qquad
+        R\text{ satisfies }\mathrm{CI2}.
+\]
+By Theorem~\ref{thm:poset48}, $R$ has at most $48$ antichains.
+
+For a finite poset, downsets are in bijection with antichains via maximal
+elements and generated ideals.  By the Irving--Leather rotation theorem,
+stable matchings of the instance are in bijection with downsets of $R$.
+Thus the instance has at most $48$ stable matchings.
+
+The order-six construction of Benjamin, Converse, and Krieger already
+has $48$ stable matchings \cite{BenjaminCK1995}.  Hence $f(6)=48$.
+\end{proof}
+
+\begin{corollary}[Necessary conditions for equality]\label{cor:equality}
+If an order-six instance has $48$ stable matchings, then its rotation poset
+$R$ satisfies
+\begin{equation}\label{eq:equality-counts}
+        |R|=15,\qquad A_2=27,\qquad A_3=5.
+\end{equation}
+Every rotation has exactly two participating men, every man belongs to
+exactly five rotations, and every man--woman pair occurs in a stable matching.
+\end{corollary}
+
+\begin{proof}
+The preceding bounds give at most $46$ antichains when $|R|\le14$,
+and at most $36$ at width at most two.  Thus $|R|=15$ and $A_3>0$.
+Lemma~\ref{lem:n15} excludes $A_3\ge6$ at equality.  Since
+$A_2\le27$ and $A_3\le5$, the identity $48=16+A_2+A_3$ forces
+$A_2=27$ and $A_3=5$.
+
+Apply the participation bound to a complete elimination sequence.  For
+each of the six men let $d_m$ be his total number of participations, with
+$d_m=0$ for any man in no rotation.  Then $d_m\le5$, and
+\begin{equation}\label{eq:equality-incidences}
+30=2|R|\le\sum_{\rho\in R}|\supp(\rho)|
+       =\sum_m d_m\le6\cdot5=30.
+\end{equation}
+Every inequality is an equality.  Consequently each support has size two
+and each $d_m$ equals five.  A man sees his initial partner and five
+subsequent, strictly worse partners along the sequence.  These six distinct
+partners exhaust the six women, and every intermediate matching is stable.
+Thus all $36$ man--woman pairs are attainable.  The conclusion is a set of
+necessary conditions, not a uniqueness or sufficiency assertion.
+\end{proof}
+
+\begin{remark}[The classical example and $P_*$]\label{rem:ds3-pstar}
+The Benjamin--Converse--Krieger $DS_3$ instance also realizes the abstract
+sharp example of Proposition~\ref{prop:explicit-extremal}.  A direct finite
+reconstruction of its stable-matching lattice gives $15$ join-irreducibles
+whose poset is isomorphic to $P_*$; an explicit isomorphism and reproducible
+certificate are given in the Supplementary Material.  This observation is
+not used in the upper-bound proof and is not asserted as a
+uniqueness/classification statement.
+\end{remark}
+
+\section{Verification note}
+
+The new finite combinatorial core has accompanying Lean verification.
+The three formal layers cover the fixed-token participation and small-block
+bounds, the support-poset implication from explicit capacity hypotheses to
+width at most three and $\mathrm{CI2}$, and the finite-poset bound of
+Theorem~\ref{thm:poset48}, including its fifteen-element endpoint.
+The formalization is a verification aid, not a logical dependency of the
+human proof.
+The connection from actual rotations to the token model and the standard
+stable-matching--downset correspondence remain human mathematics supported
+by the classical references above.
+The Supplementary Material records the precise formalization scope and
+reproducibility details.
+
+\section*{Research provenance and responsibility}
+
+Generative-AI systems from OpenAI were used substantively during the
+research workflow, including exploration of proof strategies and auxiliary
+lemmas, assistance with finite-verification and Lean-formalization workflows,
+and drafting or revising parts of the exposition.  The human author selected
+the research objectives and final proof route, checked the mathematical
+arguments and computational certificates, reviewed the formalization
+boundaries, and takes full responsibility for every statement in the
+manuscript.  No AI system is an author.  The accompanying repository records
+verification artifacts and the scope of the formalized components.  The
+retained project records do not support a complete exact model/version
+history, so no such history is asserted here.
+
+\begin{thebibliography}{99}
+
+\bibitem{BenjaminCK1995}
+A. T. Benjamin, C. Converse, and H. A. Krieger,
+How do I marry thee? Let me count the ways!,
+\emph{Discrete Applied Mathematics} 59 (1995), 285--292.
+doi:10.1016/0166-218X(95)80006-P.
+
+\bibitem{IrvingLeather1986}
+R. W. Irving and P. Leather,
+The complexity of counting stable marriages,
+\emph{SIAM Journal on Computing} 15 (1986), 655--667.
+doi:10.1137/0215048.
+
+\bibitem{DusartHC2024}
+J. Dusart, M. Habib, and D. G. Corneil,
+Maximal cliques lattices structures for cocomparability graphs with
+algorithmic applications,
+\emph{Order} 41 (2024), 99--133.
+doi:10.1007/s11083-023-09641-x.
+Preprint version: \emph{Maximal cliques structure for cocomparability
+graphs and applications}, arXiv:1611.02002 (2016).
+
+\bibitem{PalmerPalvolgyi2022}
+C. Palmer and D. P\'alv\"olgyi,
+At most $3.55^n$ stable matchings,
+in \emph{Proceedings of FOCS 2021}, 217--227, IEEE, 2022.
+doi:10.1109/FOCS52979.2021.00029.
+
+\bibitem{GusfieldIrving1989}
+D. Gusfield and R. W. Irving,
+\emph{The Stable Marriage Problem: Structure and Algorithms},
+MIT Press, 1989.
+
+\bibitem{KarlinOGW2018}
+A. R. Karlin, S. Oveis Gharan, and R. Weber,
+A simply exponential upper bound on the maximum number of stable matchings,
+in \emph{Proceedings of the 50th Annual ACM SIGACT Symposium on Theory of
+Computing (STOC 2018)}, 920--925, 2018.
+doi:10.1145/3188745.3188848.
+
+\bibitem{BhatnagarGR2008}
+N. Bhatnagar, S. Greenberg, and D. Randall,
+Sampling stable marriages: why spouse-swapping won't work,
+in \emph{Proceedings of the Nineteenth Annual ACM--SIAM Symposium on
+Discrete Algorithms (SODA 2008)}, 1223--1232, 2008.
+doi:10.1145/1347082.1347215.
+
+\bibitem{Thurber2002}
+E. G. Thurber,
+Concerning the maximum number of stable matchings in the stable marriage
+problem,
+\emph{Discrete Mathematics} 248 (2002), 195--219.
+doi:10.1016/S0012-365X(01)00194-7.
+
+\end{thebibliography}
+
+\end{document}

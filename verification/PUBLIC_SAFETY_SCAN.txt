@@ -1,0 +1,25 @@
+PUBLIC_SAFETY_SCAN=PASS_FOR_SCANNED_PATTERNS
+TEXT_HOME_PATH_FILES=0
+TEXT_DROPBOX_FILES=0
+TEXT_PRIVATE_CHAT_MARKER_FILES=0
+TEXT_ORDER7_PROJECT_IDENTIFIER_FILES=0
+TEXT_ANONYMOUS_AUTHOR_FILES=0
+TEXT_RELEASE_CANDIDATE_WORDING_FILES=0
+TEXT_EMAIL_MATCH_FILES=0
+TEXT_HIGH_CONFIDENCE_SECRET_FILES=0
+PDF_HOME_PATH_MATCHES=0
+PDF_PRIVATE_MARKER_MATCHES=0
+
+Patterns covered personal /Users paths, Dropbox markers, old/private chat
+transcript markers, order-seven project identifiers, anonymous-author or
+release-candidate wording, email addresses, private-key headers, and common
+high-confidence API/token/password formats. Generic words
+such as "token" were not treated as secrets because they are mathematical
+terms in the formalization. A general mathematical sentence in the manuscript
+mentions “order seven”; it is not order-seven project material. The public
+GitHub handle and repository URL named by the release request are intentionally
+present; no email address is present.
+
+Deliberately excluded from public_repo: old chat and private conversations,
+handoff archives, order-seven research, scratch experiments, unrelated logs,
+account metadata, credentials, and the surrounding project worktree.

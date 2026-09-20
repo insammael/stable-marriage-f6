@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the manuscript and this repository snapshot."
+title: "Small Rotation Blocks and the Order-Six Stable Marriage Problem"
+type: software
+version: 0.8.0
+authors:
+  - given-names: "Myunglae"
+    family-names: "Jo"
+    orcid: "https://orcid.org/0000-0003-1480-1717"
+    affiliation: "Kyungpook National University"
+repository-code: "https://github.com/insammael/stable-marriage-f6"
+license: Apache-2.0
+abstract: >-
+  Public repository containing the manuscript, supplementary material,
+  finite verification artifacts, and a Lean formalization of the finite-poset
+  antichain bound used in the order-six stable-marriage proof.

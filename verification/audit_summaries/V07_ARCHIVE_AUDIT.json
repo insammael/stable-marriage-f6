@@ -1,0 +1,22 @@
+{
+  "supplement_entries": [
+    "SUPPLEMENTARY_MATERIAL.pdf",
+    "AUXILIARY_CHECKS/README.md",
+    "AUXILIARY_CHECKS/check_ds3_pstar.py",
+    "AUXILIARY_CHECKS/DS3_PSTAR_CHECK.json",
+    "AUXILIARY_CHECKS/SHA256SUMS.txt"
+  ],
+  "outer_entries": [
+    "MANUSCRIPT.pdf",
+    "SUPPLEMENTARY_MATERIALS.zip",
+    "LEAN_FORMALIZATION_REVIEWER_PACKAGE.zip"
+  ],
+  "recursive_members_scanned": 33,
+  "identity_path_leaks": [],
+  "sha256": {
+    "MANUSCRIPT.pdf": "b9729934e59b61acc9e4327cf1804dd1ede0865f4d9c74b50bf577b69c88cdab",
+    "SUPPLEMENTARY_MATERIALS.zip": "36de57f79bc202b4246a00d835ba2b395c88d789151e1bc0e7847183da6b869d",
+    "LEAN_FORMALIZATION_REVIEWER_PACKAGE.zip": "0d6524cf50fa8dfe34c456ebeb1476add48e4e39bbd00ec37938a2f4b912fa63",
+    "F6_REVIEWER_SUBMISSION_BUNDLE_06.zip": "00a279efb9a408cb8f60264355623e010eef7bb118b68a21aaa11f641ee05342"
+  }
+}

@@ -1,0 +1,30 @@
+'F6SmallBlockTokenCapacity.TokenRun.mem_participationSteps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.rank_monotone' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.rank_after_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.initial_rank_lt_after' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.participation_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.incidence_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.selected_participation_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.incidence_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.TWO_SITE_CAPACITY' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.three_incidence_equality' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.THREE_SITE_INCIDENCE_EQUALITY' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.previous_holder_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.pair_swap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.named_pair_swap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.TWO_SUPPORT_FORCES_SWAP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.pair_of_card_two_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.three_membership_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.triangle_supports' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.THREE_STEP_RETURN' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.THREE_SITE_CAPACITY' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.SMALL_BLOCK_TOKEN_CAPACITIES' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'F6SmallBlockTokenCapacity.TokenRun.SIX_SITE_INCIDENCE_OPTIONAL' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -1,0 +1,17 @@
+{
+  "challenge_module": "palomar.Challenge",
+  "solution_module": "palomar.Solution",
+  "theorem_names": ["StableMarriageF6Public.totalAntichains_le_48"],
+  "definition_names": [
+    "StableMarriageF6Public.incomparability",
+    "StableMarriageF6Public.antichain",
+    "StableMarriageF6Public.chain",
+    "StableMarriageF6Public.widthLE",
+    "StableMarriageF6Public.inc",
+    "StableMarriageF6Public.ci2",
+    "StableMarriageF6Public.antichains",
+    "StableMarriageF6Public.totalNumberOfAntichains"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

@@ -1,0 +1,5 @@
+'DilworthTheorem.dilworth_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6ConvexWindowFull.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6ConvexWindowFull.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6ConvexWindowFull.T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'F6ConvexWindowFull.T4' depends on axioms: [propext, Classical.choice, Quot.sound]

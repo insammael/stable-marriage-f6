@@ -1,0 +1,237 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,array}
+\usepackage[T1]{fontenc}
+\setlength{\emergencystretch}{3em}
+\usepackage[hidelinks]{hyperref}
+\title{Supplementary Material\\Formalization Scope and Explicit-Example Checks}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{S1. Purpose}
+The companion source package verifies selected finite combinatorial components
+of \emph{Small Rotation Blocks and the Order-Six Stable Marriage Problem}.
+It is not an end-to-end Lean formalization of stable marriage or of the
+statement $f(6)=48$.  The manuscript supplies the complete human upper-bound
+argument and cites the published lower-bound construction.
+
+\section*{S2. Fixed-token combinatorics}
+The module \texttt{F6SmallBlockTokenCapacity.lean} uses fixed finite types
+of participants $B$ and tokens $W$, bijective states $B\simeq W$, supports
+of size at least two, unchanged nonparticipants, and strictly worsening
+participants.  Its principal declarations are
+\begin{verbatim}
+TokenRun.participation_count
+TokenRun.TWO_SITE_CAPACITY
+TokenRun.THREE_SITE_CAPACITY
+TokenRun.SMALL_BLOCK_TOKEN_CAPACITIES
+TokenRun.SIX_SITE_INCIDENCE_OPTIONAL
+\end{verbatim}
+in namespace \texttt{F6SmallBlockTokenCapacity}.  They prove the
+participation bound $|B|-1$, the capacities $q\le1$ for $|B|\le2$ and
+$q\le2$ for $|B|\le3$, and $q\le15$ for $|B|\le6$.  The three-participant proof includes incidence
+equality, forced pair swaps, and token return.
+
+\section*{S3. Abstract support geometry}
+The module \texttt{F6RotationSupportCI2.lean} has an abstract finite poset
+$R$ and a support map to a finite set of at most six participants.  It assumes
+support size at least two and comparability of elements whose supports
+intersect.  The hypotheses \texttt{HCAP2} and \texttt{HCAP3} explicitly
+assert the capacities for convex subsets using at most two and three
+participants.  From these hypotheses, the declaration
+\begin{verbatim}
+F6RotationSupport.widthLE3_and_ci2_of_rotation_support
+\end{verbatim}
+proves width at most three and CI2.  These capacity hypotheses are visible
+arguments, not hidden axioms.  The source package does not construct actual
+stable-marriage rotations or formally connect their execution to the abstract
+token model; that connection is made in the manuscript.
+
+\section*{S4. Finite-poset counting}
+The modules \texttt{F6ConvexWindow.lean},
+\texttt{F6ConvexWindowFull.lean}, and
+\texttt{F6ConvexWindowN15.lean} establish the pair and triple estimates and
+the fifteen-element refinement.  The final declaration is
+\begin{verbatim}
+F6ConvexWindow.totalAntichains_le_48
+\end{verbatim}
+with hypotheses \texttt{WidthLE 3}, \texttt{CI2}, and
+\texttt{Fintype.card V <= 15}.  No preference-profile classification is an
+input to this theorem.  The chain decomposition is supplied by the bundled Lean proof of Dilworth's theorem.
+
+\section*{S5. Dilworth source and reproducibility}
+The bundled \texttt{DilworthTheorem.lean} has source repository
+\begin{quote}\small
+\url{https://github.com/sneed-and-feed/lean-theorems-1}
+\end{quote}
+with frozen commit
+\begin{quote}\ttfamily\small
+4fce2c92ad4321064a06afdc86d0272bc625ce14
+\end{quote}
+and SHA-256
+{\footnotesize
+\begin{verbatim}
+bfbd7c9505c0bdc4d8ba7ff49b3a1b39243ee35f3ad21d87a287a3df3a48faea
+\end{verbatim}
+}
+The package records the CC0-1.0 dedication associated with that source
+repository.
+
+The frozen v07 \texttt{LEAN\_FORMALIZATION\_REVIEWER\_PACKAGE.zip}
+has SHA-256
+{\footnotesize
+\begin{verbatim}
+0d6524cf50fa8dfe34c456ebeb1476add48e4e39bbd00ec37938a2f4b912fa63
+\end{verbatim}
+}
+It pins Lean 4.27.0 and mathlib v4.27.0; the mathlib commit is
+\begin{quote}\ttfamily\small
+a3a10db0e9d66acbebf76c5e6a135066525ac900.
+\end{quote}
+For the public repository, the audited source files are exposed
+directly under \texttt{lean/} and migrated to a Palomar-supported Lean
+toolchain, with the toolchain, Mathlib revision, and transitive dependencies
+pinned by \texttt{lean-toolchain}, \texttt{lakefile.toml}, and the committed
+\texttt{lake-manifest.json}.  From the public-repository root, run
+\begin{verbatim}
+lake build
+lake env lean palomar/AxiomAudit.lean
+\end{verbatim}
+The v08 release audit records the build and axiom outputs and separately
+checks the migrated source against the frozen v07 source.  The support module
+may emit unused-section-variable linter warnings; these are not proof
+admissions.
+The reported load-bearing axioms are \texttt{propext},
+\texttt{Classical.choice}, and \texttt{Quot.sound}.
+
+\section*{S6. Scope of the human statements}
+The restricted-instance observation, the explicit extremal fifteen-element
+poset, the necessary equality conditions, and the $DS_3$--$P_*$ isomorphism
+are human statements, not Lean-verified statements in the bundled formalization.
+The general order-$N$ support-budget statement and the stable-matching--downset
+correspondence also remain outside the bundled formal development.
+These statements are not formalized in the accompanying Lean development.
+The upper bound does not rely
+on the auxiliary example calculations below.
+
+\section*{S7. An explicit extremal poset}
+For $P_* = \{1,\ldots,5\}\times\{1,2,3\}$, put
+\[
+(i,a)<(j,b)\quad\Longleftrightarrow\quad
+j\ge i+2\ \text{or}\ (j=i+1\text{ and }a\ne b).
+\]
+The manuscript directly proves that $P_*$ has width three and CI2.
+
+Its antichain counts are $(1,15,27,5)$, totaling $48$.  An auxiliary check
+enumerated all $2^{15}$ subsets, tested pairwise incomparability, and tested
+CI2 for every comparable pair.  It returned the same counts, no larger
+antichains, and maximum common-incomparability size two.  This verifies one
+explicit extremal example and does not classify extremal posets.
+
+\section*{S8. A classical order-six lower-bound instance}
+The preference instance used by the auxiliary checker is the $DS_3$
+construction of Benjamin, Converse, and Krieger \cite{BenjaminCK1995}:
+$DS_n$ is defined in their Section~3 (p.~287) as a $2n\times2n$ Latin
+square built from $S_n$, with an algebraic definition of its entries;
+Fig.~1 on that page displays $DS_3$ explicitly, and Section~5 (p.~291)
+states that $DS_3$ produces $48$ stable matchings.
+The table below is a transcription of Fig.~1 and the Section~3 algebraic
+definition.  The publication identifies and defines the instance; the
+checker verifies the mathematical properties of the transcribed input.
+The row indexed by a man gives his rank of each woman, with rank $1$ best:
+\[
+R=\begin{pmatrix}
+1&3&5&2&4&6\\
+3&5&1&6&2&4\\
+5&1&3&4&6&2\\
+2&4&6&1&3&5\\
+6&2&4&3&5&1\\
+4&6&2&5&1&3
+\end{pmatrix}.
+\]
+Woman $j$ assigns rank $7-R_{ij}$ to man $i$.  Enumerating all $6!=720$
+permutations $p$ and rejecting any one for which there is a pair $(i,j)$
+satisfying
+\[
+R_{ij}<R_{i,p(i)}
+\quad\text{and}\quad
+7-R_{ij}<7-R_{p^{-1}(j),j}
+\]
+returns $48$ stable matchings.  The bundled checker also
+recovered $15$ join-irreducibles of the complete stable-matching lattice,
+with antichain counts $(1,15,27,5)$, and found all $36$ pairs attainable.
+All $15$ join-irreducible cover moves have two-man support, and each man
+participates five times.
+These are checks of one instance, not a proof of the universal upper bound
+or of the necessity statements for every extremal instance.
+
+\subsection*{S8.1. Explicit isomorphism certificate}
+Let $r_1,\ldots,r_{15}$ be the join-irreducibles in the deterministic order
+of the bundled checker: stable matchings are sorted by the sum of men's
+ranks, then lexicographically, and those with exactly one lower cover are
+retained in that order.  Define
+\[
+\phi(r_{3(i-1)+k})=
+\begin{cases}
+(i,k),&i\text{ odd},\\
+(i,4-k),&i\text{ even},
+\end{cases}
+\qquad 1\le i\le5,\quad 1\le k\le3.
+\]
+The five levels, written as indices, are
+\[
+\{1,2,3\},\quad\{4,5,6\},\quad\{7,8,9\},\quad
+\{10,11,12\},\quad\{13,14,15\}.
+\]
+Covers occur only between consecutive levels.  Each such cover graph is
+$K_{3,3}$ minus a perfect matching; the four missing matchings are
+\[
+\begin{aligned}
+&\{(1,6),(2,5),(3,4)\},\\
+&\{(4,9),(5,8),(6,7)\},\\
+&\{(7,12),(8,11),(9,10)\},\\
+&\{(10,15),(11,14),(12,13)\}.
+\end{aligned}
+\]
+The checker verifies for every pair $u,v$ that
+\[
+r_u\le r_v\quad\Longleftrightarrow\quad
+\phi(r_u)\le_{P_*}\phi(r_v).
+\]
+Writing $J(DS_3)$ for the join-irreducible poset of the stable-matching
+lattice, this gives $J(DS_3)\cong P_*$.
+For a finite poset $R$, the join-irreducible elements of its ideal lattice
+$\mathcal J(R)$ are precisely the principal ideals $\downarrow r$, so
+$r\mapsto\downarrow r$ identifies $R$ with
+$\operatorname{Ji}(\mathcal J(R))$.
+Combining this identification with the classical correspondence between
+the stable-matching lattice and $\mathcal J(R)$, where $R$ is the rotation
+poset (see the Irving--Leather reference in the manuscript), shows that
+this join-irreducible poset is isomorphic to the rotation poset of $DS_3$.  This is a finite certificate for one extremal example.
+It is not used in the universal upper bound and does not prove uniqueness
+of the extremal rotation poset.  No novelty or priority claim is made for
+this isomorphism.
+
+\section*{S9. Reproducing the auxiliary checks}
+The supplementary package includes \texttt{AUXILIARY\_CHECKS/}, containing
+\texttt{check\_ds3\_pstar.py}, its expected \texttt{DS3\_PSTAR\_CHECK.json},
+a README, and SHA-256 checksums.  From that directory run
+\begin{verbatim}
+python3 check_ds3_pstar.py
+\end{verbatim}
+The checker uses only the Python standard library.  The command regenerates\newline
+\texttt{DS3\_PSTAR\_CHECK.json} and must reproduce the bundled expected JSON
+exactly, byte-for-byte; its expected hash is recorded in the README and
+\texttt{SHA256SUMS.txt}.  These auxiliary checks concern one explicit
+example and are not a universal proof or Lean verification.
+
+\begin{thebibliography}{9}
+\bibitem{BenjaminCK1995}
+A. T. Benjamin, C. Converse, and H. A. Krieger,
+How do I marry thee? Let me count the ways!,
+\emph{Discrete Applied Mathematics} 59 (1995), 285--292.
+doi:10.1016/0166-218X(95)80006-P.
+\end{thebibliography}
+\end{document}

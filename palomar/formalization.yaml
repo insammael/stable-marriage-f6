@@ -1,0 +1,97 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "The order-six stable-marriage finite-poset bound"
+  description: >-
+    A Lean formalization of the finite-poset theorem that any finite poset
+    with at most fifteen elements, width at most three, and the CI2
+    common-incomparability condition has at most forty-eight antichains.
+  authors:
+    - name: "Myunglae Jo"
+      github: "insammael"
+      orcid: "0000-0003-1480-1717"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - name: "Myunglae Jo"
+      github: "insammael"
+      orcid: "0000-0003-1480-1717"
+
+classification:
+  arxiv: [math.CO]
+  msc2020: [06A07]
+
+sources:
+  - title: "Small Rotation Blocks and the Order-Six Stable Marriage Problem"
+    authors: ["Myunglae Jo"]
+    type: "manuscript"
+    relationship: "formalizes"
+    note: >-
+      This submission formalizes only the finite-poset theorem used by the
+      manuscript, not the complete stable-marriage semantic bridge.
+    license: "unknown"
+    author_endorsement: "participated"
+
+status:
+  scope: >-
+    The advertised result is exactly the finite-poset theorem: card V <= 15,
+    width <= 3, and CI2 imply at most 48 antichains. The Lean development also
+    contains supporting finite-poset, fixed-token, and abstract-support
+    components. It does not formalize end to end the classical rotation
+    semantics, the stable-matching/downset correspondence, the human bridge
+    from rotations to the token model, or the lower-bound construction.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Quot.sound", "Classical.choice"]
+  main_results:
+    - "F6ConvexWindow.totalAntichains_le_48"
+
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "OpenAI generative-AI systems"
+      tool_setup: >-
+        AI-assisted proof exploration, auxiliary-lemma development,
+        finite verification, Lean workflow assistance, and exposition edits;
+        exact historical model/version data were not retained completely.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "not tracked"
+        hardware: "local machine and hosted AI services"
+      prompting_notes: >-
+        The human author selected the research objectives and final proof
+        route and reviewed the mathematics and formalization boundary.
+  spend_usd: "not tracked"
+  notes: >-
+    No AI system is an author. The human author takes responsibility for the
+    mathematical and metadata claims. Exact historical model/version names
+    are intentionally not asserted because the project record is incomplete.
+
+fidelity:
+  divergences: >-
+    The compared theorem faithfully states the manuscript's finite-poset
+    theorem. The broader manuscript theorem f(6)=48 is not the advertised
+    Lean theorem and is not formalized end to end.
+
+review:
+  status: "self-assessed and supported by the frozen v07 audit"
+  reviewers: []
+  notes: >-
+    The v07 package reports PASS_FULL. The public-release audit separately
+    records build, axiom, admission, statement-diff, and privacy checks.
+
+alignment:
+  namespace: "StableMarriageF6Public"
+  statements:
+    - source: "Finite-poset theorem in the v08 public manuscript"
+      lean: "StableMarriageF6Public.totalAntichains_le_48"
+      module: "palomar.Solution"
+      status: "proved"
+      note: >-
+        Reuses F6ConvexWindow.totalAntichains_le_48 with the same finite-poset
+        definitions and hypotheses.
+
+acknowledgements: >-
+  Lean, Mathlib, the bundled Dilworth formalization credited in
+  lean/third_party/DILWORTH_PROVENANCE.txt, and OpenAI generative-AI systems.

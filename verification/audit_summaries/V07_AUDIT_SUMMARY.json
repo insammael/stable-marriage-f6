@@ -1,0 +1,41 @@
+{
+  "task_id": "F6_FINAL_SIGNIFICANCE_PROVENANCE_V07",
+  "status": "PASS_FULL",
+  "quality_gates": {
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": true,
+    "11": true
+  },
+  "publication_edit_blocks": [
+    2,
+    1
+  ],
+  "protected_environments_unchanged": true,
+  "baseline_files_unchanged": 61,
+  "compile_runs": 4,
+  "compile_exit_codes": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_pass_warnings": [],
+  "visual_audit": "VISUAL_AUDIT_RECEIPT.json",
+  "residue_scan": "RESIDUE_SCAN.txt",
+  "provenance_basis": "User-supplied verified publication facts",
+  "checker_exact_json_reproduction": true,
+  "checker_sha256": "5e6d94c73b17a8a53859806b2d6633a58f53382f88beee7dc492c07acd08be10",
+  "expected_and_reproduced_json_sha256": "ecc23e331a55a100325cb4a308f5922498fca26b559a4fb88fed1b93687da93d",
+  "lean_sha256": "0d6524cf50fa8dfe34c456ebeb1476add48e4e39bbd00ec37938a2f4b912fa63",
+  "lean_action": "byte-for-byte reuse; not rerun",
+  "archive_audit": "ARCHIVE_AUDIT.json",
+  "git_commit_created": false
+}

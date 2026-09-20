@@ -1,0 +1,23 @@
+LEAN_BUILD=PASS
+TOOLCHAIN=leanprover/lean4:v4.33.1
+MATHLIB_REVISION=0df444a360eaa60ab8c11dca51a86af692955474
+CORE_SOURCE_RELATION_TO_V07=ONE_DOCUMENTED_PROOF_SYNTAX_COMPATIBILITY_HUNK
+BUILD_RESULT=Build completed successfully (8717 jobs).
+
+The build used the already-installed official Mathlib v4.33.1 checkout and
+compiled the candidate's own source; it did not download Mathlib from scratch.
+
+Compatibility edit:
+
+  lean/StableMarriageF6/F6ConvexWindow.lean:651:6
+  In `F6ConvexWindow.two_chain_degree_eq_A2`, the cardinality equality was
+  named `hcard` and the final simplification now includes `Nat.cast_id`:
+
+    simpa only [sum_boole, Nat.cast_id] using hcard
+
+This is a proof-syntax/elaboration normalization for Mathlib 4.33.1. It does
+not change a definition, hypothesis, conclusion, theorem statement, or proof
+strategy. The complete hunk is recorded in `LEAN_COMPATIBILITY_DIFF.txt`.
+
+The only build warnings were the deliberate Challenge `sorry` and three
+pre-existing unused-section-variable linter warnings.

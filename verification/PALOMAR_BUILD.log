@@ -1,0 +1,72 @@
+ℹ [8705/8713] Replayed StableMarriageF6.DilworthTheorem
+info: lean/StableMarriageF6/DilworthTheorem.lean:387:0: 'DilworthTheorem.dilworth_theorem' depends on axioms: [propext, choice, Quot.sound]
+info: lean/StableMarriageF6/DilworthTheorem.lean:388:0: 'DilworthTheorem.dilworth_duality' depends on axioms: [propext, choice, Quot.sound]
+info: lean/StableMarriageF6/DilworthTheorem.lean:489:0: 'DilworthTheorem.mirsky_theorem' depends on axioms: [propext, choice, Quot.sound]
+info: lean/StableMarriageF6/DilworthTheorem.lean:490:0: 'DilworthTheorem.mirsky_duality' depends on axioms: [propext, choice, Quot.sound]
+⚠ [8707/8713] Replayed palomar.Challenge
+warning: palomar/Challenge.lean:57:8: declaration uses `sorry`
+ℹ [8709/8713] Replayed StableMarriageF6.F6ConvexWindow
+info: lean/StableMarriageF6/F6ConvexWindow.lean:693:0: @F6ConvexWindow.target1_triples : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 3 → F6ConvexWindow.CI2 → 0 < F6ConvexWindow.Ak 3 → 2 * F6ConvexWindow.Ak 3 + 1 ≤ Fintype.card V
+info: lean/StableMarriageF6/F6ConvexWindow.lean:694:0: @F6ConvexWindow.target2_pairs_three_chains : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 3 →
+    F6ConvexWindow.CI2 →
+      0 < F6ConvexWindow.Ak 3 →
+        ∀ (d : F6ConvexWindow.ChainDecomposition 3), F6ConvexWindow.Ak 2 + 3 ≤ 2 * Fintype.card V
+info: lean/StableMarriageF6/F6ConvexWindow.lean:695:0: @F6ConvexWindow.target3_antichains46_three_chains : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 3 →
+    F6ConvexWindow.CI2 →
+      0 < F6ConvexWindow.Ak 3 →
+        Fintype.card V ≤ 14 → ∀ (d : F6ConvexWindow.ChainDecomposition 3), F6ConvexWindow.totalAntichains ≤ 46
+info: lean/StableMarriageF6/F6ConvexWindow.lean:696:0: @F6ConvexWindow.target4_antichains36_two_chains : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 2 →
+    F6ConvexWindow.CI2 →
+      Fintype.card V ≤ 15 → ∀ (d : F6ConvexWindow.ChainDecomposition 2), F6ConvexWindow.totalAntichains ≤ 36
+info: lean/StableMarriageF6/F6ConvexWindow.lean:697:0: 'F6ConvexWindow.target1_triples' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:698:0: 'F6ConvexWindow.target2_pairs_three_chains' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:699:0: 'F6ConvexWindow.target3_antichains46_three_chains' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:700:0: 'F6ConvexWindow.target4_antichains36_two_chains' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:701:0: 'F6ConvexWindow.triple_ideals_nested' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:702:0: 'F6ConvexWindow.triple_intersection_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:703:0: 'F6ConvexWindow.no_reentry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:704:0: 'F6ConvexWindow.chain_adjacent_overlap' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:705:0: 'F6ConvexWindow.degree_sum_eq_twice_A2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:706:0: 'F6ConvexWindow.antichain_count_width3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindow.lean:707:0: 'F6ConvexWindow.antichain_count_width2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8710/8713] Replayed StableMarriageF6.F6ConvexWindowFull
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:103:0: @DilworthTheorem.dilworth_theorem : ∀ {α : Type u_1} [inst : PartialOrder α] (S : Finset α) (k : ℕ),
+  (∀ A ⊆ S, DilworthTheorem.IsAntichain ↑A → A.card ≤ k) → ∃ C, DilworthTheorem.IsChainCover S C
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:104:0: @F6ConvexWindowFull.T1 : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 3 → F6ConvexWindow.CI2 → 0 < F6ConvexWindow.Ak 3 → 2 * F6ConvexWindow.Ak 3 + 1 ≤ Fintype.card V
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:105:0: @F6ConvexWindowFull.T2 : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 3 → F6ConvexWindow.CI2 → 0 < F6ConvexWindow.Ak 3 → F6ConvexWindow.Ak 2 + 3 ≤ 2 * Fintype.card V
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:106:0: @F6ConvexWindowFull.T3 : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 3 →
+    F6ConvexWindow.CI2 → 0 < F6ConvexWindow.Ak 3 → Fintype.card V ≤ 14 → F6ConvexWindow.totalAntichains ≤ 46
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:107:0: @F6ConvexWindowFull.T4 : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 2 → F6ConvexWindow.CI2 → Fintype.card V ≤ 15 → F6ConvexWindow.totalAntichains ≤ 36
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:108:0: 'DilworthTheorem.dilworth_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:109:0: 'F6ConvexWindowFull.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:110:0: 'F6ConvexWindowFull.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:111:0: 'F6ConvexWindowFull.T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowFull.lean:112:0: 'F6ConvexWindowFull.T4' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8711/8713] Replayed StableMarriageF6.F6ConvexWindowN15
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:672:0: @F6ConvexWindow.totalAntichains_le_48 : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : PartialOrder V],
+  F6ConvexWindow.WidthLE 3 → F6ConvexWindow.CI2 → Fintype.card V ≤ 15 → F6ConvexWindow.totalAntichains ≤ 48
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:673:0: 'F6ConvexWindow.ordered_actual_triples' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:674:0: 'F6ConvexWindow.earlier_exclusive_below' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:675:0: 'F6ConvexWindow.later_exclusive_above' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:676:0: 'F6ConvexWindow.successive_new_vertices' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:677:0: 'F6ConvexWindow.emptyTransitions_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:678:0: 'F6ConvexWindow.overlapping_prefix_crossPairs_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:679:0: 'F6ConvexWindow.disjoint_triples_matching' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:680:0: 'F6ConvexWindow.disjoint_triples_cross_le_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:681:0: 'F6ConvexWindow.prefix_pairCount_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:682:0: 'F6ConvexWindow.triple_union_counts' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:683:0: 'F6ConvexWindow.outsider_neighbors_le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:684:0: 'F6ConvexWindow.all_pairs_le_union_outsiders' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:685:0: 'F6ConvexWindow.n15_large_triple_arithmetic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:686:0: 'F6ConvexWindow.totalAntichains_le_46_of_six_triples' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:687:0: 'F6ConvexWindow.width2_of_A3_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: lean/StableMarriageF6/F6ConvexWindowN15.lean:688:0: 'F6ConvexWindow.totalAntichains_le_48' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (8713 jobs).

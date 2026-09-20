@@ -1,0 +1,16 @@
+PALOMAR_POLICY_CHECKED=2026-09-20
+PALOMAR_TEMPLATE_COMMIT=128a6c5ce5f48622e69927ccd639cbff401022e8
+PALOMAR_SUBMISSION_VERIFIER_COMMIT=3561d237dcc4b28482558ad28a64d767d7cc8615
+PALOMAR_MINIMUM_LEAN=v4.28.0
+CANDIDATE_LEAN=v4.33.1
+FORMALIZATION_YAML_VERSION=v0.4
+FORMALIZATION_SCHEMA=PASS_CURRENT_VERIFIER_PARSER
+COMPARATOR_JSON_SCHEMA=PASS_CURRENT_VERIFIER_LOADER
+LOCAL_COMPARATOR=NOT_RUN_REMOTE_PALOMAR_VERIFIER
+LOCAL_NANODA=NOT_RUN_REMOTE_PALOMAR_VERIFIER
+
+The audit host is macOS and does not have the required Go, Rust/Cargo, and
+Linux Landrun environment. Under current Palomar policy, authoritative
+Comparator, Lean kernel, and mandatory NanoDa verification runs remotely on
+the immutable public GitHub commit. These local deferrals are not failures or
+release blockers.

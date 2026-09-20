@@ -1,0 +1,15 @@
+--- v07/StableMarriageF6/F6ConvexWindow.lean
++++ v08/lean/StableMarriageF6/F6ConvexWindow.lean
+@@ -648,7 +648,11 @@
+         ext x
+         simp only [mem_filter, ChainDecomposition.mem_part]
+         exact and_comm
+-      simpa only [sum_boole] using congrArg Finset.card hsets
++      have hcard :
++          ((d.part i).filter (fun x => x ∈ T)).card =
++            (T.filter (fun x => d.color x = i)).card :=
++        congrArg Finset.card hsets
++      simpa only [sum_boole, Nat.cast_id] using hcard
+     _ = ∑ T ∈ F, 1 := by
+       apply sum_congr rfl
+       intro T hT
