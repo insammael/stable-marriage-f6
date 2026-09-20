@@ -3,6 +3,7 @@ message: "If you use this work, please cite the manuscript and this repository s
 title: "Small Rotation Blocks and the Order-Six Stable Marriage Problem"
 type: software
 version: 0.8.0
+doi: "10.5281/zenodo.22860585"
 authors:
   - given-names: "Myunglae"
     family-names: "Jo"

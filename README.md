@@ -3,6 +3,8 @@
 This repository accompanies *Small Rotation Blocks and the Order-Six Stable
 Marriage Problem*.
 
+Zenodo preprint DOI: [10.5281/zenodo.22860585](https://doi.org/10.5281/zenodo.22860585).
+
 The manuscript proves the order-six result by human mathematics. The Lean
 development verifies important components, including the following finite-
 poset theorem, which is the only result advertised in the Palomar files:
@@ -55,10 +57,9 @@ than failed; the configuration and metadata schemas were validated locally.
 ## Priority and provenance
 
 The manuscript retains its cautious statement concerning Roman Parks and the
-Biola University project announcement and makes no priority claim. It also
-contains a substantive generative-AI disclosure. Exact historical AI model
-and version names are not asserted because the retained project records do
-not support a complete exact history.
+Biola University project announcement and makes no priority claim. It contains
+a concise generative-AI tools declaration; policy-specific automation
+provenance remains in the relevant metadata and audit files.
 
 ## License
 
